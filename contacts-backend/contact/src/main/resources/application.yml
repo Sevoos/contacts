@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: Contacts
+
+  datasource:
+    url: jdbc:mariadb://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/contacts
+    username: user
+    password: userpassword
+    driver-class-name: org.mariadb.jdbc.Driver
+  profiles:
+    active: default
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # or validate/create-drop/etc.
+#      dll-auto=create-drop
+    show-sql: true
+  web:
+    resources:
+      add-mappings: false
+
+shared:
+  hostIconHandling: http://icon-handling:${BE_PORT}
+#  apiIconHandling: /api/icon-handling/v1
+  apiIconHandling: /api/v1
+
+server:
+  port: ${BE_PORT}
+  servlet:
+    context-path: /api/v1

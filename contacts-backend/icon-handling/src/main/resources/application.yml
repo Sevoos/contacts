@@ -1,0 +1,22 @@
+shared:
+  hostContact: http://contact:${BE_PORT}
+#  apiContact: /api/contact/v1
+  apiContact: /api/v1
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 128MB
+      max-request-size: 128MB
+  application:
+    name: Icon Handling
+  profiles:
+    active: default
+
+server:
+  port: ${BE_PORT}
+  servlet:
+    context-path: /api/v1
+
+iconhandling:
+  iconsDirectory: icons

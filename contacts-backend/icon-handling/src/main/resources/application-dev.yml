@@ -1,0 +1,7 @@
+server:
+  port: 8092
+shared:
+  hostContact: http://localhost:8091
+
+iconhandling:
+  iconsDirectory: contacts-backend/icons

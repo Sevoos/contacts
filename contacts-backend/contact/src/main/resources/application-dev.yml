@@ -1,0 +1,9 @@
+server:
+  port: 8091
+
+shared:
+  hostIconHandling: http://localhost:8092
+
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:${MYSQL_PORT:3306}/contacts

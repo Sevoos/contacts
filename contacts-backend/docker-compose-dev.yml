@@ -1,0 +1,16 @@
+services:
+
+  db:
+    image: mariadb:11
+    container_name: mariadb
+    environment:
+      MARIADB_DATABASE: contacts
+      MARIADB_USER: user
+      MARIADB_PASSWORD: userpassword
+      MARIADB_ROOT_PASSWORD: rootpassword
+    volumes:
+      - ./db_data:/var/lib/mysql
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
