@@ -1,7 +1,6 @@
 shared:
-  hostContact: http://contact:${BE_PORT}
-#  apiContact: /api/contact/v1
-  apiContact: /api/v1
+  hostContact: ${CONTACT_HOST}:${BE_PORT}
+  apiContact: ${BE_API}
 
 spring:
   servlet:
@@ -16,7 +15,7 @@ spring:
 server:
   port: ${BE_PORT}
   servlet:
-    context-path: /api/v1
+    context-path: ${BE_API}
 
 iconhandling:
   iconsDirectory: icons

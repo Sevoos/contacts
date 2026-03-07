@@ -2,7 +2,7 @@ package net.sevoos.contacts.iconhandling.service
 
 import net.sevoos.contacts.contact.api.ContactPublicApiService
 import net.sevoos.contacts.icon.api.IconPublicApiService
-import net.sevoos.contacts.shared.contact.ContactApiSpringConfig
+import net.sevoos.contacts.contact.ContactApiSpringConfig
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.io.InputStreamResource
 import org.springframework.http.HttpStatus
@@ -53,7 +53,7 @@ class IconHandlingIntermediateService(
         }
         val file = service.getPreviewPath(id).toFile()
         if (!file.exists()) {
-            println("File not found: $file")
+            println("File not found: ${file.absolutePath}")
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)
         }
         return constructResponseWithInputStreamResource(file)

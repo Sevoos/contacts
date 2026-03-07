@@ -7,8 +7,6 @@ plugins {
     application
 }
 
-//apply<CommonDependenciesPlugin>()
-
 group = "net.sevoos"
 version = "1.0"
 description = "Demo project for Spring Boot"
@@ -30,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":shared"))
+    implementation(project(":contacts-backend:shared"))
     // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
     implementation("org.mariadb.jdbc:mariadb-java-client:3.5.6")
     // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client

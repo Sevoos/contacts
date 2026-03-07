@@ -43,13 +43,15 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-/contacts-frontend/node_modules/
-/contacts-frontend/.editorconfig
+
+/contacts-frontend-js/node_modules/
+/contacts-frontend-js/.editorconfig
 /contacts-backend/.env
 /contacts-backend/db_data
 /contacts-backend/icons
-/contacts-frontend/src/lib
-/contacts-frontend/dist
-/contacts-backend/local-repo
-/local-repo
-/contacts-frontend/.idea
+/contacts-frontend-js/src/lib
+/contacts-frontend-js/dist
+/contacts-backend/local
+/local
+/contacts-frontend-js/.idea
+

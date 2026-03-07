@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":shared"))
+    implementation(project(":contacts-backend:shared"))
 }
 
 kotlin {

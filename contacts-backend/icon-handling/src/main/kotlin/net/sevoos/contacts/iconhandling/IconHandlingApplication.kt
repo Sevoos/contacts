@@ -1,7 +1,7 @@
 package net.sevoos.contacts.iconhandling
 
 import net.sevoos.contacts.iconhandling.config.IconHandlingConfig
-import net.sevoos.contacts.shared.contact.ContactApiSpringConfig
+import net.sevoos.contacts.contact.ContactApiSpringConfig
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration

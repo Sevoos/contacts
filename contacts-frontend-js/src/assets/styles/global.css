@@ -1,0 +1,56 @@
+.clickable {
+  cursor: pointer;
+}
+
+.withEmptyLineBelow {
+  margin-bottom: 1rem;
+}
+
+.grayed {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.error {
+  color: red;
+}
+
+.justRed {
+  color: red;
+}
+
+.noTextDecoration {
+  text-decoration: none;
+}
+
+.row {
+  display: flex;
+}
+
+.alignToRight {
+  margin-left: auto;
+}
+
+.centeredVertically {
+  display: flex;
+  align-items: center;
+}
+
+.gap {
+  gap: 8px;
+}
+
+.redButton {
+  background-color: red;
+  color: white;
+}
+
+.buttonRightSpace {
+  margin-right: 1rem;
+}
+
+.value--null {
+  color: #999;
+  font-style: italic;
+  opacity: 0.7;
+}

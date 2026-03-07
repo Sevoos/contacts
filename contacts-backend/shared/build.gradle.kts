@@ -8,11 +8,7 @@ plugins {
 }
 
 group = "net.sevoos"
-version = "unspecified"
-
-repositories {
-    mavenCentral()
-}
+version = "1.0"
 
 dependencies {
 

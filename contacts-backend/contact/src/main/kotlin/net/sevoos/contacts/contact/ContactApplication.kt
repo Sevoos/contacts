@@ -1,7 +1,7 @@
 package net.sevoos.contacts.contact
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import net.sevoos.contacts.shared.iconhandling.IconHandlingApiSpringConfig
+import net.sevoos.contacts.iconhandling.IconHandlingApiSpringConfig
 import org.openapitools.jackson.nullable.JsonNullableModule
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.EnableConfigurationProperties

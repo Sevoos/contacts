@@ -3,7 +3,7 @@ package net.sevoos.contacts.contact.service
 import net.sevoos.contacts.contact.entity.IconEntity
 import net.sevoos.contacts.contact.repository.IconRepository
 import net.sevoos.contacts.iconhandling.api.IconHandlingPrivateApiService
-import net.sevoos.contacts.shared.iconhandling.IconHandlingApiSpringConfig
+import net.sevoos.contacts.iconhandling.IconHandlingApiSpringConfig
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

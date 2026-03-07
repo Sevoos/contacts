@@ -1,0 +1,77 @@
+services:
+
+  db:
+    image: mariadb:11
+    container_name: mariadb
+    environment:
+      MARIADB_DATABASE: contacts
+      MARIADB_USER: user
+      MARIADB_PASSWORD: userpassword
+      MARIADB_ROOT_PASSWORD: rootpassword
+    networks:
+      - backend
+    volumes:
+      - ./contacts-backend/db_data:/var/lib/mysql
+#    ports:
+#      - "3306:3306"
+
+  contact:
+    build:
+      context: .
+      dockerfile: contacts-backend/Dockerfile
+      args:
+        MODULE_NAME: contact
+    image: contact
+    depends_on:
+      - db
+    env_file:
+      - .env
+    networks:
+      - backend
+
+  icon-handling:
+    build:
+      context: .
+      dockerfile: contacts-backend/Dockerfile
+      args:
+        MODULE_NAME: icon-handling
+    image: icon-handling
+    depends_on:
+      - db
+    env_file:
+      - .env
+    networks:
+      - backend
+    volumes:
+      - ./contacts-backend/icons:/app/icons
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "${API_PORT}:${BACKEND_LISTENING_PORT}"
+    env_file: .env
+    volumes:
+      - ./contacts-backend/nginx/nginx.conf.template:/etc/nginx/templates/default.conf.template:ro
+    depends_on:
+      - contact
+      - icon-handling
+    networks:
+      - backend
+
+  frontend:
+    build:
+      context: .
+      dockerfile: contacts-frontend-js/Dockerfile
+      args:
+        CONTACT_API: ${CONTACT_API}
+        ICON_HANDLING_API: ${ICON_HANDLING_API}
+        SERVER_HOST_EXTERNAL: ${SERVER_HOST_EXTERNAL}
+        API_PORT: ${API_PORT}
+    ports:
+      - "1024:${FRONTEND_LISTENING_PORT}"
+    restart: unless-stopped
+
+
+networks:
+  backend:
+    driver: bridge

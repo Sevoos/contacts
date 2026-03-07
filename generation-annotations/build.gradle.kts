@@ -42,8 +42,8 @@ publishing {
     }
     repositories {
         maven {
-            name = "localRepo"
-            url = uri("${rootProject.projectDir}/local-repo")
+            name = "local"
+            url = uri(rootProject.projectDir.resolve("local").toString())
         }
     }
 }

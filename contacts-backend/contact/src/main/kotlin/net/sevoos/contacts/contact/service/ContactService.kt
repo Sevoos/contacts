@@ -1,6 +1,8 @@
 package net.sevoos.contacts.contact.service
 
 import jakarta.annotation.PostConstruct
+import net.sevoos.contacts.birthdaydate.dto.BirthdayDateDto
+import net.sevoos.contacts.communicationchannel.dto.CommunicationChannelContactCreationDto
 import net.sevoos.contacts.communicationchannel.dto.CommunicationChannelCreationDto
 import net.sevoos.contacts.contact.dto.ContactCreationDto
 import net.sevoos.contacts.contact.dto.ContactDto
@@ -138,6 +140,28 @@ class ContactService {
         return newDto
     }
 
+    @Transactional
+    fun finishContactCreation(
+        entity: ContactEntity,
+        birthdayDate: BirthdayDateDto?,
+        communicationChannels: Array<CommunicationChannelContactCreationDto>
+    ) {
+        val contactId = entity.id
+        birthdayDate?.let {
+            entity.birthdayDate = birthdayDateService.saveDtoToEntity(contactId, it)
+        }
+        communicationChannels.forEach {
+            communicationChannelService.createCommunicationChannel(
+                CommunicationChannelCreationDto(
+                    it.comment,
+                    it.type,
+                    contactId,
+                    it.value
+                )
+            )
+        }
+    }
+
     fun saveDtoToEntity(dto: ContactCreationDto): Long {
         val entity = constructor.newInstance()
         entity.category = dto.category.toList()
@@ -150,22 +174,8 @@ class ContactService {
         entity.modificationDate = time
         entity.timezone = dto.timezone
         repository.save(entity)
-        val contactId = entity.id
-        dto.communicationChannels.forEach {
-            communicationChannelService.createCommunicationChannel(
-                CommunicationChannelCreationDto(
-                    it.comment,
-                    it.type,
-                    contactId,
-                    it.value
-                )
-            )
-        }
-        dto.birthdayDate?.let {
-            entity.birthdayDate = birthdayDateService.saveDtoToEntity(contactId, it)
-        }
-        repository.save(entity)
-        return contactId
+        finishContactCreation(entity, dto.birthdayDate, dto.communicationChannels)
+        return entity.id
     }
 
     @Transactional

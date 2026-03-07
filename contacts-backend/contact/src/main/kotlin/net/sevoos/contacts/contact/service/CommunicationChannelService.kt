@@ -56,9 +56,6 @@ class CommunicationChannelService {
         if (patchDto.comment.isPresent) {
             entity.comment = patchDto.comment.get()
         }
-        if (patchDto.contactId.isPresent) {
-            entity.contactId = patchDto.contactId.get()
-        }
         if (patchDto.type.isPresent) {
             entity.type = patchDto.type.get()
         }

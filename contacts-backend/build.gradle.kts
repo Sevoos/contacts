@@ -25,13 +25,12 @@ subprojects {
     repositories {
         mavenCentral()
         maven {
-            url = uri(rootProject.projectDir.resolve("local-repo"))
+            url = uri(rootProject.projectDir.resolve("local"))
         }
     }
 
     dependencies {
-        implementation("net.sevoos.contacts:generation-annotations:1.0.0")
-        implementation("net.sevoos.contacts:contacts-global-jvm:1.0.0")
+        implementation(project(":contacts-frontend"))
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.9.0")
         implementation("org.springframework.boot:spring-boot-starter-web")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -51,14 +50,13 @@ subprojects {
 //        implementation("com.google.guava:guava:33.5.0-jre")
     }
 
-    tasks.bootJar {
-        enabled = true
-    }
-
-    tasks.jar {
-        enabled = false
-    }
-
+//    tasks.bootJar {
+//        enabled = true
+//    }
+//
+//    tasks.jar {
+//        enabled = false
+//    }
 
 }
 

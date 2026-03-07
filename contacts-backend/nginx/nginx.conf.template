@@ -1,0 +1,27 @@
+upstream contact {
+    server contact:${BE_PORT};
+}
+
+upstream icon-handling {
+    server icon-handling:${BE_PORT};
+}
+
+server {
+    listen ${BACKEND_LISTENING_PORT};
+
+    # Contact service
+    location ${CONTACT_API}/ {
+        proxy_pass ${CONTACT_HOST}${BE_API}/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+    }
+
+    # Icon handling service
+    location ${ICON_HANDLING_API}/ {
+        proxy_pass ${ICON_HANDLING_HOST}${BE_API}/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        client_max_body_size 20M;
+    }
+
+}

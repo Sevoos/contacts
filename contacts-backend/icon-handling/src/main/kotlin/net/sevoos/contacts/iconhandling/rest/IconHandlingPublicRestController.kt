@@ -34,10 +34,10 @@ class IconHandlingPublicRestController {
         intermediateService.downloadIconPreview(id)
 
     @ResponseBody
-    @PostMapping(path = [UPLOAD_ICON], consumes = [MULTIPART_FORM_DATA_VALUE])
+    @PostMapping(path = ["$UPLOAD_ICON/{contactId}"])
     fun uploadIcon(
         @RequestPart("file") file: MultipartFile,
-        @RequestPart("data") contactId: Long
+        @PathVariable contactId: Long
     ): ResponseEntity<Long> {
         val image = fileToImage(file) ?: return ResponseEntity.badRequest().body(null)
         return intermediateService.addIconToContact(contactId, image)

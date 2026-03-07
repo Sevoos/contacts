@@ -1,9 +1,25 @@
 server:
   port: 8091
+  servlet:
+    context-path: /api/poop/v1
 
 shared:
   hostIconHandling: http://localhost:8092
 
 spring:
+  application:
+    name: Contacts
+
   datasource:
-    url: jdbc:mariadb://localhost:${MYSQL_PORT:3306}/contacts
+    url: jdbc:mariadb://localhost:3306/contacts
+    username: user
+    password: userpassword
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  web:
+    resources:
+      add-mappings: false

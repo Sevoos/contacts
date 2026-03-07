@@ -23,49 +23,4 @@ val iconPublicApiService = IconPublicApiService(contactApiConfig)
 
 fun main() {
 
-    println(contactPublicApiService.patchContact(14, ContactPatchDtoClient(
-        patronymicName = null,
-        category = listOf()
-    )).body)
-//    println(contactPublicApiService.createContact(contactCreationDto))
-
-//    println(contactPublicApiService.getContact(3).body)
-
-//    println(contactPublicApiService.setDefaultIcon(SetDefaultIconDto(3, 5)))
-
-//    iconPublicApiService.deleteIconEntity(11)
-
-//    val name = "session_a.png"
-//    val test = Files.readAllBytes(Path(name))
-//    println(iconHandlingPublicApiService.uploadIcon(1, name, test))
-
-//    contactPublicApiService.deleteContact(2)
-
-//    val bytes = iconHandlingPublicApiService.downloadIconPreview(5).body!!
-//    File("nikita_preview.jpg").outputStream().write(bytes)
-
-//    val timezone = TimeZone.of("Asia/Almaty")
-//    println(Clock.System.now().toLocalDateTime(timezone))
 }
-
-//val contactCreationDto = ContactCreationDto(
-//    BirthdayDateDto(1988, 2, 14),
-//    listOf("Family", "Paternal line"),
-//    listOf(
-//        CommunicationChannelContactCreationDto(
-//            null,
-//            Telegram,
-//            "+79250491234"
-//        ),
-//        CommunicationChannelContactCreationDto(
-//            null,
-//            Email,
-//            "andreymaslov@gmail.com"
-//        )
-//    ),
-//    "Папа",
-//    "Андрей",
-//    "Маслов",
-//    "Андреевич",
-//    "Asia/Almaty"
-//)

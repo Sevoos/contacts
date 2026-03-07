@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":contacts-multiplatform"))
+    implementation(project(":contacts-frontend"))
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     implementation("org.slf4j:slf4j-simple:2.0.17")
     // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-datetime
@@ -31,8 +31,3 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
         freeCompilerArgs.add("-opt-in=kotlin.time.ExperimentalTime")
     }
 }
-
-//tasks.named("build") {
-////    dependsOn("kspKotlinJs")
-//    dependsOn("contacts-multiplatform:kspKotlinJvm")
-//}

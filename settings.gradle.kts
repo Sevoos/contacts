@@ -15,6 +15,10 @@ pluginManagement {
     plugins {
         id("org.jetbrains.kotlin.jvm") version "2.2.20"
     }
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
 }
 
 plugins {
@@ -22,13 +26,10 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
 
-// Include the `app` and `utils` subprojects in the build.
-// If there are changes in only one of the projects, Gradle will rebuild only the one that has changed.
-// Learn more about structuring projects with Gradle - https://docs.gradle.org/8.7/userguide/multi_project_builds.html
-include(":app")
-include(":contacts-multiplatform")
-includeBuild("contacts-backend")
-//include(":contacts-global")
+include(":contacts-frontend")
+include("contacts-backend:contact")
+include("contacts-backend:icon-handling")
+include("contacts-backend:shared")
 include("ksp-processor")
 include("generation-annotations")
 include("test-api")
