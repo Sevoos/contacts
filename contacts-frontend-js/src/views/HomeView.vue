@@ -19,7 +19,7 @@ import {useImageObjectUrlCache} from "@/composables/useImageObjectUrlCache.ts";
 import type {Contact} from "@/contact/Contact.ts";
 import {getIconFullQualityKey, getIconPreviewKey} from "@/composables/useImageCache.ts";
 import {Temporal} from "@js-temporal/polyfill";
-import type {BirthdayDateDto} from "@/lib";
+import type {BirthdayDateDto} from "@contacts/frontend-api";
 import {updateEverything} from "@/utils/ContactApiUtils.ts";
 import {createContactPath, settingsPath} from "@/router/paths.ts";
 import {readExpandedNodes, saveExpandedNodes} from "@/utils/Utils.ts";

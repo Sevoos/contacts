@@ -1,6 +1,6 @@
 import {
   BirthdayDateDto, ContactDto, sortCommunicationChannels,
-} from "@/lib";
+} from "@contacts/frontend-api";
 import {
   deleteContactIfSaved,
   getContactsWithIdenticalNameFromAll,

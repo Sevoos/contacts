@@ -1,4 +1,4 @@
-import {BirthdayDateDto} from "@/lib";
+import {BirthdayDateDto} from "@contacts/frontend-api";
 import {Temporal} from "@js-temporal/polyfill";
 import {getMaxDay, isLeapYear} from "@/utils/ContactCreationUtils.ts";
 

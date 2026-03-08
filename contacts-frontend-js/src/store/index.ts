@@ -3,7 +3,7 @@ import {
   CommunicationChannelPublicApiFrontendService,
   ContactApiConfig, ContactPublicApiFrontendService, IconHandlingApiConfig,
   IconHandlingPublicApiFrontendService, IconPublicApiFrontendService
-} from "@/lib";
+} from "@contacts/frontend-api";
 import {Temporal} from "@js-temporal/polyfill";
 import Instant = Temporal.Instant;
 import {findAllContacts} from "@/utils/ContactUtils.ts";

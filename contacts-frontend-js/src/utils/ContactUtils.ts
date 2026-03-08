@@ -1,6 +1,6 @@
 import {ContactLocalStore} from "@/utils/ContactLocalStore.ts";
 import {type Contact, saveContactFromDto} from "@/contact/Contact.ts";
-import {BirthdayDateDto, type Nullable} from "@/lib";
+import {BirthdayDateDto, type Nullable} from "@contacts/frontend-api";
 import {Temporal} from "@js-temporal/polyfill";
 import Instant = Temporal.Instant;
 import {myStore} from "@/store";

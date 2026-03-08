@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {ContactCreationDto, removeAtIfNeeded} from "@/lib";
+import {ContactCreationDto, removeAtIfNeeded} from "@contacts/frontend-api";
 import {computed, onBeforeUnmount, reactive, ref} from "vue";
 import {
   defaultTimezoneForContactCreation,

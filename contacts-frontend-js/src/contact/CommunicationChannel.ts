@@ -1,7 +1,7 @@
 import {
   type CommunicationChannelDto,
   EnumCommunicationChannel
-} from "@/lib";
+} from "@contacts/frontend-api";
 
 export class CommunicationChannel {
 

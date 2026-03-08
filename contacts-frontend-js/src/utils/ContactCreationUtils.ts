@@ -1,4 +1,4 @@
-import {ContactCreationDto, type Nullable} from "@/lib";
+import {ContactCreationDto, type Nullable} from "@contacts/frontend-api";
 import {sanitizeSpaces} from "@/utils/Utils.ts";
 
 export const birthdayDate = "birthdayDate"

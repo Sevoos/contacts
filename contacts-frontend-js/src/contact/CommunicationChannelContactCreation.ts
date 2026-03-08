@@ -1,4 +1,4 @@
-import {CommunicationChannelContactCreationDto, EnumCommunicationChannel} from "@/lib";
+import {CommunicationChannelContactCreationDto, EnumCommunicationChannel} from "@contacts/frontend-api";
 
 export class CommunicationChannelContactCreation {
 

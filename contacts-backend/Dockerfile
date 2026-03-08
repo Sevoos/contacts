@@ -18,16 +18,16 @@ COPY generation-annotations/build.gradle.kts generation-annotations/
 COPY ksp-processor/build.gradle.kts ksp-processor/
 
 RUN --mount=type=cache,target=/root/.gradle \
-    ./gradlew :contacts-backend:${MODULE_NAME}:dependencies --no-daemon
+    ./gradlew :contacts-backend:${MODULE_NAME}:dependencies --no-daemon --parallel --configure-on-demand
 
 COPY contacts-backend/${MODULE_NAME}/src contacts-backend/${MODULE_NAME}/src
 COPY contacts-backend/shared/src contacts-backend/shared/src
-    COPY contacts-frontend/src contacts-frontend/src
-    COPY generation-annotations/src generation-annotations/src
-    COPY ksp-processor/src ksp-processor/src
+COPY contacts-frontend/src contacts-frontend/src
+COPY generation-annotations/src generation-annotations/src
+COPY ksp-processor/src ksp-processor/src
 
 RUN --mount=type=cache,target=/root/.gradle \
-    ./gradlew :contacts-backend:${MODULE_NAME}:bootJar --no-daemon #--no-build-cache
+    ./gradlew :contacts-backend:${MODULE_NAME}:bootJar --no-daemon --configure-on-demand --parallel
 
 RUN cp /build/contacts-backend/${MODULE_NAME}/build/libs/*.jar /build/app.jar
 

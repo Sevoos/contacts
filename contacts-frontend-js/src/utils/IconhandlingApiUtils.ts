@@ -4,7 +4,7 @@ import {
   listAllIcons, saveIconFullQuality, saveIconPreview
 } from "@/composables/useImageCache.ts";
 import {readConfig} from "@/config/settings.ts";
-import {ResponseEntity, SetDefaultIconDto} from "@/lib";
+import {ResponseEntity, SetDefaultIconDto} from "@contacts/frontend-api";
 
 async function getAllStoredIcons(): Promise<bigint[]> {
   const suffix = "-preview"

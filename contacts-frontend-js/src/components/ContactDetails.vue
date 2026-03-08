@@ -30,7 +30,7 @@ import {
   CommunicationChannelPatchDtoJs, ContactPatchDtoJs,
   EnumCommunicationChannel,
   getCommunicationChannelLink, patchCommunicationChannel, patchContact, removeAtIfNeeded
-} from "@/lib";
+} from "@contacts/frontend-api";
 import {
   CommunicationChannel,
   communicationChannelTypes,

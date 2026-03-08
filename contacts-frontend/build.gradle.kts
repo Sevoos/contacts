@@ -12,8 +12,6 @@ version = "1.0"
 group = "net.sevoos.contacts"
 
 val moduleName = "contacts-frontend"
-val localRepoName = "local"
-val localRepoPath = rootProject.projectDir.resolve(localRepoName).toString()
 
 kotlin {
     jvm()
@@ -39,7 +37,10 @@ kotlin {
 
             freeCompilerArgs.add("-Xes-long-as-bigint")
         }
-
+        compilations["main"].packageJson {
+            customField("name", "@contacts/frontend-api")
+            customField("version", "1.0.0")
+        }
     }
     sourceSets {
         val ktorVersion = "3.3.2"
@@ -106,33 +107,13 @@ kotlin {
 dependencies {
     add("kspJvm", project(":ksp-processor"))
     add("kspJs", project(":ksp-processor"))
-//    add("kspCommonMainMetadata", project(":ksp-processor"))
 }
 
-val taskClean = tasks.named("clean")
-
-val kspKotlinJvm = "kspKotlinJvm"
-
-val exportedJsCodeDirectory = rootProject.projectDir
-    .resolve(moduleName)
-    .resolve("build")
-    .resolve("dist")
-    .resolve("js")
-val frontendLibraryDirectory = rootProject.projectDir
-    .resolve("contacts-frontend-js")
-    .resolve("src")
-    .resolve("lib")
 val taskJsDevDist = tasks.named("jsBrowserDevelopmentLibraryDistribution")
 val taskJsProdDist = tasks.named("jsBrowserProductionLibraryDistribution")
 
 val kspKotlinJs = "kspKotlinJs"
 
-//tasks.matching { it.name == kspKotlinJs }
-//    .configureEach {
-//        mustRunAfter(taskClean)
-//    }
-//
-//
 taskJsDevDist.configure {
     mustRunAfter(tasks.named(kspKotlinJs))
 }
@@ -140,21 +121,25 @@ taskJsProdDist.configure {
     mustRunAfter(tasks.named(kspKotlinJs))
 }
 
+val distJsDirectory = rootProject.projectDir
+    .resolve(moduleName)
+    .resolve("build")
+    .resolve("dist")
+    .resolve("js")
+
+val frontendLibraryDirectory = rootProject.projectDir
+    .resolve("contacts-frontend-js")
+    .resolve("kotlin-lib")
+
 tasks.register<Copy>("exportJavascriptDevelopment") {
     dependsOn(tasks.named(kspKotlinJs), taskJsDevDist)
-
-    from(
-        exportedJsCodeDirectory.resolve("developmentLibrary")
-    )
+    from(distJsDirectory.resolve("developmentLibrary"))
     into(frontendLibraryDirectory)
 }
 
 tasks.register<Copy>("exportJavascriptProduction") {
     dependsOn(tasks.named(kspKotlinJs), taskJsProdDist)
-
-    from(
-        exportedJsCodeDirectory.resolve("productionLibrary")
-    )
+    from(distJsDirectory.resolve("productionLibrary"))
     into(frontendLibraryDirectory)
 }
 
