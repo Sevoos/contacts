@@ -54,7 +54,7 @@ services:
       - "${API_PORT}:${BACKEND_LISTENING_PORT}"
     env_file: .env
     volumes:
-      - ./contacts-backend/nginx/nginx.conf.template:/etc/nginx/templates/default.conf.template:ro
+      - ./contacts-backend/nginx/nginx.conf.template:/etc/nginx/templates/default.conf.template:ro,Z
     depends_on:
       - contact
       - icon-handling
