@@ -1,7 +1,7 @@
 server:
   port: 8091
   servlet:
-    context-path: /api/poop/v1
+    context-path: /api/contact/v1
 
 shared:
   hostIconHandling: http://localhost:8092

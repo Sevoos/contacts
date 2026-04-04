@@ -20,5 +20,6 @@ class ContactApplication {
 }
 
 fun main(args: Array<String>) {
+    println(4)
     runApplication<ContactApplication>(*args)
 }

@@ -10,11 +10,8 @@ spring:
   profiles:
     active: default
 
-  jpa:
-    hibernate:
-      ddl-auto: update  # or validate/create-drop/etc.
-#      dll-auto=create-drop
-    show-sql: true
+#  jpa:
+#    show-sql: true
   web:
     resources:
       add-mappings: false
