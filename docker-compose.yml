@@ -15,10 +15,11 @@ services:
       - backend
     volumes:
       - db_data:/var/lib/mysql
-#    ports:
-#      - "3306:3306"
+    ports:
+      - "3306:3306"
 
   contact:
+    container_name: contact
     build:
       context: .
       dockerfile: contacts-backend/Dockerfile
@@ -33,6 +34,7 @@ services:
       - backend
 
   icon-handling:
+    container_name: icon-handling
     build:
       context: .
       dockerfile: contacts-backend/Dockerfile
@@ -49,6 +51,7 @@ services:
       - ./contacts-backend/icons:/app/icons
 
   nginx:
+    container_name: contacts-nginx
     image: nginx:latest
     ports:
       - "${API_PORT}:${BACKEND_LISTENING_PORT}"
@@ -62,6 +65,7 @@ services:
       - backend
 
   frontend:
+    container_name: contacts-frontend
     build:
       context: .
       dockerfile: contacts-frontend-js/Dockerfile
