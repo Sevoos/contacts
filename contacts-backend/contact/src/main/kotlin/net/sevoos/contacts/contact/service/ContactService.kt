@@ -23,7 +23,6 @@ class ContactService {
     @Autowired
     private lateinit var communicationChannelService: CommunicationChannelService
     private val constructor = ContactEntity::class.java.getConstructor()
-//    private var defaultTimezone = TimeZone.currentSystemDefault()
     @Autowired
     private lateinit var iconService: IconService
     @Autowired
@@ -92,7 +91,8 @@ class ContactService {
         repository.findAll().map { it.id }
 
     @Transactional
-    fun patchContact(entity: ContactEntity, patchDto: ContactPatchDto): ContactDto? {
+    fun patchContact(id: Long, patchDto: ContactPatchDto): ContactDto? {
+        val entity = repository.findById(id).get()
         val savedDto = entityToDto(entity)
 
         if (patchDto.birthdayDate.isPresent) {
@@ -142,20 +142,20 @@ class ContactService {
 
     @Transactional
     fun finishContactCreation(
-        entity: ContactEntity,
+        id: Long,
         birthdayDate: BirthdayDateDto?,
         communicationChannels: Array<CommunicationChannelContactCreationDto>
     ) {
-        val contactId = entity.id
+        val entity = repository.findById(id).get()
         birthdayDate?.let {
-            entity.birthdayDate = birthdayDateService.saveDtoToEntity(contactId, it)
+            entity.birthdayDate = birthdayDateService.saveDtoToEntity(id, it)
         }
         communicationChannels.forEach {
             communicationChannelService.createCommunicationChannel(
                 CommunicationChannelCreationDto(
                     it.comment,
                     it.type,
-                    contactId,
+                    id,
                     it.value
                 )
             )
@@ -174,13 +174,14 @@ class ContactService {
         entity.modificationDate = time
         entity.timezone = dto.timezone
         repository.save(entity)
-        finishContactCreation(entity, dto.birthdayDate, dto.communicationChannels)
-        return entity.id
+        val id = entity.id
+        finishContactCreation(id, dto.birthdayDate, dto.communicationChannels)
+        return id
     }
 
     @Transactional
-    fun setDefaultIcon(contactId: Long, iconId: Long) {
-        val contact = repository.findById(contactId).get()
+    fun setDefaultIcon(id: Long, iconId: Long) {
+        val contact = repository.findById(id).get()
         contact.defaultIconId = iconId
     }
 

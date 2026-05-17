@@ -48,9 +48,10 @@ class CommunicationChannelService {
 
     @Transactional
     fun patchCommunicationChannel(
-        entity: CommunicationChannelEntity,
+        id: Long,
         patchDto: CommunicationChannelPatchDto
     ): CommunicationChannelDto? {
+        val entity = repository.findById(id).get()
         val savedDto = entityToDto(entity)
 
         if (patchDto.comment.isPresent) {

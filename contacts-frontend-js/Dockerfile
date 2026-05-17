@@ -1,8 +1,33 @@
-FROM node:20-alpine AS frontend-build
+FROM eclipse-temurin:21-jdk AS gradle_builder
+WORKDIR /build
 
+COPY gradlew .
+RUN chmod +x gradlew
+COPY gradle gradle
+
+COPY settings.gradle.kts .
+COPY build.gradle.kts .
+
+COPY generation-annotations/build.gradle.kts generation-annotations/
+COPY ksp-processor/build.gradle.kts ksp-processor/
+
+COPY contacts-frontend/build.gradle.kts contacts-frontend/
+
+RUN --mount=type=cache,target=/root/.gradle \
+    ./gradlew :contacts-frontend:dependencies --no-daemon --parallel --configure-on-demand
+
+COPY generation-annotations/src generation-annotations/src
+COPY ksp-processor/src ksp-processor/src
+
+COPY contacts-frontend/src contacts-frontend/src
+
+RUN --mount=type=cache,target=/root/.gradle \
+    ./gradlew :contacts-frontend:exportJavascriptProduction --no-daemon --configure-on-demand --parallel
+
+FROM node:20 AS frontend-build
 WORKDIR /app
 
-COPY contacts-frontend-js/kotlin-lib/ contacts-frontend-js/kotlin-lib/
+COPY --from=gradle_builder /build/contacts-frontend-js/kotlin-lib contacts-frontend-js/
 
 ARG CONTACT_API
 ARG ICON_HANDLING_API

@@ -54,14 +54,13 @@ class ContactIntermediateService {
     }
 
     fun patchContact(id: Long, patchDto: ContactPatchDto): ResponseEntity<ContactDto?> {
-        val optionalEntity = repository.findById(id)
-        if (optionalEntity.isEmpty) {
+        if (!repository.existsById(id)) {
             return ResponseEntity.status(NOT_FOUND).body(null)
         }
         if (patchDto.timezone.isPresent && !isTimezoneValid(patchDto.timezone.get())) {
             return ResponseEntity.badRequest().body(null)
         }
-        val newDtoIfModified = service.patchContact(optionalEntity.get(), patchDto)
+        val newDtoIfModified = service.patchContact(id, patchDto)
         return ResponseEntity.status(if (newDtoIfModified == null) NO_CONTENT else OK).body(newDtoIfModified)
     }
 

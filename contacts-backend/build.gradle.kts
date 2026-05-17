@@ -24,9 +24,6 @@ subprojects {
 
     repositories {
         mavenCentral()
-        maven {
-            url = uri(rootProject.projectDir.resolve("local"))
-        }
     }
 
     dependencies {
@@ -39,15 +36,8 @@ subprojects {
         annotationProcessor("org.projectlombok:lombok")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-//            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-//            implementation("org.springframework.boot:spring-boot-starter-parent:3.5.6")
         implementation("org.springframework.boot:spring-boot-starter-validation")
-        // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
-        implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.5.6")
-//            // https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api
-//            implementation("jakarta.persistence:jakarta.persistence-api:3.2.0")
-//        // https://mvnrepository.com/artifact/com.google.guava/guava
-//        implementation("com.google.guava:guava:33.5.0-jre")
+        implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     }
 
 //    tasks.bootJar {

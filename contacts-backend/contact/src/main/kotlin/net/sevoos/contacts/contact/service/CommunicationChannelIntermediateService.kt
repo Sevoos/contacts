@@ -5,7 +5,6 @@ import net.sevoos.contacts.communicationchannel.dto.CommunicationChannelDto
 import net.sevoos.contacts.contact.dto.CommunicationChannelPatchDto
 import net.sevoos.contacts.contact.repository.CommunicationChannelRepository
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.http.HttpStatus.NOT_FOUND
@@ -55,11 +54,10 @@ class CommunicationChannelIntermediateService {
         id: Long,
         patchDto: CommunicationChannelPatchDto
     ): ResponseEntity<CommunicationChannelDto?> {
-        val optionalEntity = repository.findById(id)
-        if (optionalEntity.isEmpty) {
+        if (!repository.existsById(id)) {
             return ResponseEntity.status(NOT_FOUND).body(null)
         }
-        val newDtoIfModified = service.patchCommunicationChannel(optionalEntity.get(), patchDto)
+        val newDtoIfModified = service.patchCommunicationChannel(id, patchDto)
         return ResponseEntity.status(if (newDtoIfModified == null) NO_CONTENT else OK).body(newDtoIfModified)
     }
 

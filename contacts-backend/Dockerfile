@@ -4,6 +4,7 @@ WORKDIR /build
 ARG MODULE_NAME
 
 COPY gradlew .
+RUN chmod +x gradlew
 COPY gradle gradle
 
 COPY settings.gradle.kts .
