@@ -3,6 +3,7 @@ WORKDIR /build
 
 COPY gradlew .
 RUN chmod +x gradlew
+RUN sed -i 's/\r$//' gradlew
 COPY gradle gradle
 
 COPY settings.gradle.kts .
@@ -27,7 +28,7 @@ RUN --mount=type=cache,target=/root/.gradle \
 FROM node:20 AS frontend-build
 WORKDIR /app
 
-COPY --from=gradle_builder /build/contacts-frontend-js/kotlin-lib contacts-frontend-js/
+COPY --from=gradle_builder /build/contacts-frontend-js/kotlin-lib ./kotlin-lib/
 
 ARG CONTACT_API
 ARG ICON_HANDLING_API

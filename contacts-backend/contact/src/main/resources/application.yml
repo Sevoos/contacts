@@ -9,9 +9,9 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
   profiles:
     active: default
-
-#  jpa:
-#    show-sql: true
+  jpa:
+    hibernate:
+      ddl-auto: update
   web:
     resources:
       add-mappings: false

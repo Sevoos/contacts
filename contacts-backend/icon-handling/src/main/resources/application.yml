@@ -11,6 +11,9 @@ spring:
     name: Icon Handling
   profiles:
     active: default
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 server:
   port: ${BE_PORT}

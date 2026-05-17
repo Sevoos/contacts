@@ -5,6 +5,7 @@ ARG MODULE_NAME
 
 COPY gradlew .
 RUN chmod +x gradlew
+RUN sed -i 's/\r$//' gradlew
 COPY gradle gradle
 
 COPY settings.gradle.kts .
