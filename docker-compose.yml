@@ -35,6 +35,7 @@ services:
 
   icon-handling:
     container_name: icon-handling
+    user: "${UID:-$(id -u)}:${GID:-$(id -g)}"
     build:
       context: .
       dockerfile: contacts-backend/Dockerfile
