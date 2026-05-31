@@ -48,7 +48,7 @@ services:
     networks:
       - backend
     volumes:
-      - ./contacts-backend/icons:/app/icons
+      - ./contacts-backend/icon-handling/icons:/app/icons:Z
 
   nginx:
     container_name: contacts-nginx

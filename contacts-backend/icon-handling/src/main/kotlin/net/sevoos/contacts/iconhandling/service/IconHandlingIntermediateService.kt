@@ -23,11 +23,9 @@ class IconHandlingIntermediateService(
     @Autowired
     private lateinit var service: IconHandlingService
 
-    private fun constructResponseWithInputStreamResource(file: File): ResponseEntity<InputStreamResource> =
-        ResponseEntity.ok()
-            .contentLength(file.length())
-            .contentType(MediaType.APPLICATION_OCTET_STREAM)
-            .body(InputStreamResource(FileInputStream(file)))
+    private fun getMissingEntityResponse(id: Long): ResponseEntity<InputStreamResource>? =
+        if (iconApiService.checkIconExistence(id)) null
+        else ResponseEntity.status(HttpStatus.NOT_FOUND).body(null)
 
     fun addIconToContact(contactId: Long, image: BufferedImage): ResponseEntity<Long> {
         if (!contactApiService.checkContactExistence(contactId)) {
@@ -37,26 +35,19 @@ class IconHandlingIntermediateService(
     }
 
     fun downloadIconFullQuality(id: Long): ResponseEntity<InputStreamResource> {
-        if (!iconApiService.checkIconExistence(id)) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null)
+        val missingEntityResponse = getMissingEntityResponse(id)
+        if (missingEntityResponse != null) {
+            return missingEntityResponse
         }
-        val file = service.getFullQualityPath(id).toFile()
-        if (!file.exists()) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)
-        }
-        return constructResponseWithInputStreamResource(file)
+        return service.downloadIcon(service.getFullQualityPath(id))
     }
 
     fun downloadIconPreview(id: Long): ResponseEntity<InputStreamResource> {
-        if (!iconApiService.checkIconExistence(id)) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null)
+        val missingEntityResponse = getMissingEntityResponse(id)
+        if (missingEntityResponse != null) {
+            return missingEntityResponse
         }
-        val file = service.getPreviewPath(id).toFile()
-        if (!file.exists()) {
-            println("File not found: ${file.absolutePath}")
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)
-        }
-        return constructResponseWithInputStreamResource(file)
+        return service.downloadIcon(service.getPreviewPath(id))
     }
 
 }
