@@ -7,8 +7,8 @@ import org.springframework.validation.annotation.Validated
 @Validated
 @ConfigurationProperties(prefix = "shared")
 /*data*/ class IconHandlingApiSpringConfig/*(
-    val hostIconHandling: String,
+    val iconHandlingHost: String,
     val apiIconHandling: String
 )*/: IconHandlingApiConfig {
-    constructor(hostIconHandling: String, apiIconHandling: String): super(hostIconHandling, apiIconHandling)
+    constructor(iconHandlingHost: String, apiIconHandling: String): super(iconHandlingHost, apiIconHandling)
 }

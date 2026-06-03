@@ -7,8 +7,8 @@ import org.springframework.validation.annotation.Validated
 @Validated
 @ConfigurationProperties(prefix = "shared")
 class ContactApiSpringConfig : ContactApiConfig {
-    //    override val hostContact: String,
-//    override val apiContact: String
+    //    override val contactHost: String,
+//    override val contactApi: String
 
-    constructor(hostContact: String, apiContact: String) : super(hostContact, apiContact)
+    constructor(contactHost: String, contactApi: String) : super(contactHost, contactApi)
 }

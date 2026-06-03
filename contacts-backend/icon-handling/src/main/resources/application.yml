@@ -1,6 +1,6 @@
 shared:
-  hostContact: ${CONTACT_HOST}:${BE_PORT}
-  apiContact: ${BE_API}
+  contactHost: ${CONTACT_HOST}:${BE_PORT}
+  contactApi: ${BE_API}
 
 spring:
   servlet:

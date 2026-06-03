@@ -17,7 +17,7 @@ spring:
       add-mappings: false
 
 shared:
-  hostIconHandling: ${ICON_HANDLING_HOST}:${BE_PORT}
+  iconHandlingHost: ${ICON_HANDLING_HOST}:${BE_PORT}
   apiIconHandling: ${BE_API}
 
 server:

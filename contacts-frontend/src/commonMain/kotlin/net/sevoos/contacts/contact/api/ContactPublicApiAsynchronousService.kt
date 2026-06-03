@@ -12,9 +12,9 @@ import net.sevoos.rest.patchJson
 @AsynchronousService
 class ContactPublicApiAsynchronousService(config: ContactApiConfig) {
 
-//    private val patchRestUtility = RestUtility(config.hostContact, config.apiContact, patchJson)
-//    private val restUtility = RestUtility(config.hostContact, config.apiContact)
-private val restUtility = RestUtility(config.hostContact, config.apiContact, patchJson)
+//    private val patchRestUtility = RestUtility(config.contactHost, config.contactApi, patchJson)
+//    private val restUtility = RestUtility(config.contactHost, config.contactApi)
+private val restUtility = RestUtility(config.contactHost, config.contactApi, patchJson)
 
     suspend fun checkContactExistence(id: Long): Boolean =
         restUtility.postForObject(CHECK_CONTACT_EXISTENCE, id)

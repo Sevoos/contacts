@@ -4,7 +4,8 @@ server:
     context-path: /api/contact/v1
 
 shared:
-  hostIconHandling: http://localhost:8092
+  apiIconHandling: /api/icon-handling/v1
+  iconHandlingHost: http://localhost:8092
 
 spring:
   application:

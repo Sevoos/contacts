@@ -8,7 +8,7 @@ import net.sevoos.rest.RestUtility
 @AsynchronousService
 class IconPublicApiAsynchronousService(config: ContactApiConfig) {
 
-    private val restUtility = RestUtility(config.hostContact, config.apiContact)
+    private val restUtility = RestUtility(config.contactHost, config.contactApi)
 
     suspend fun checkIconExistence(id: Long): Boolean =
         restUtility.postForObject(CHECK_ICON_EXISTENCE, id)

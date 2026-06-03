@@ -9,7 +9,7 @@ import net.sevoos.rest.RestUtility
 @AsynchronousService
 class IconHandlingPublicApiAsynchronousService(config: IconHandlingApiConfig) {
 
-    private val restUtility = RestUtility(config.hostIconHandling, config.apiIconHandling)
+    private val restUtility = RestUtility(config.iconHandlingHost, config.apiIconHandling)
 
     suspend fun downloadIconFullQuality(id: Long): ResponseEntity<ByteArray> {
         val response = restUtility.postForEntityLongBody<ByteReadChannel>(DOWNLOAD_ICON_FULL_QUALITY, id)

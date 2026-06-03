@@ -13,7 +13,7 @@ class CommunicationChannelPublicApiAsynchronousService(
     config: ContactApiConfig
 ) {
 
-    private val restUtility = RestUtility(config.hostContact, config.apiContact)
+    private val restUtility = RestUtility(config.contactHost, config.contactApi)
 
     suspend fun createCommunicationChannel(dto: CommunicationChannelCreationDto): ResponseEntity<Long> =
         restUtility.postForEntity(CREATE_COMMUNICATION_CHANNEL, dto)

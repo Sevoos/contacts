@@ -7,7 +7,7 @@ class IconHandlingPrivateApiService(
     config: IconHandlingApiConfig
 ) {
 
-    private val restUtility = RestUtility(config.hostIconHandling, config.apiIconHandling + "/private")
+    private val restUtility = RestUtility(config.iconHandlingHost, config.apiIconHandling + "/private")
 
     fun deleteIcon(iconId: Long) = restUtility.postForObjectBlocking<Unit>(
         DELETE_ICON_FILE,

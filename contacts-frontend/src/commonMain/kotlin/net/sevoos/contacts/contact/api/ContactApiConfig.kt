@@ -4,6 +4,6 @@ import kotlin.js.JsExport
 
 @JsExport
 open class ContactApiConfig(
-    open val hostContact: String,
-    open val apiContact: String
+    open val contactHost: String,
+    open val contactApi: String
 )

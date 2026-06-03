@@ -6,7 +6,7 @@ import net.sevoos.rest.postForObjectBlocking
 
 class IconPrivateApiService(config: ContactApiConfig) {
 
-    private val restUtility = RestUtility(config.hostContact, config.apiContact + "/private")
+    private val restUtility = RestUtility(config.contactHost, config.contactApi + "/private")
 
     fun createIconEntity(contactId: Long): Long =
         restUtility.postForObjectBlocking(CREATE_ICON_ENTITY, contactId)

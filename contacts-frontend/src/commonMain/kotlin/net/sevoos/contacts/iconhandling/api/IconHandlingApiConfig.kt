@@ -4,6 +4,6 @@ import kotlin.js.JsExport
 
 @JsExport
 open class IconHandlingApiConfig(
-    val hostIconHandling: String,
+    val iconHandlingHost: String,
     val apiIconHandling: String
 )

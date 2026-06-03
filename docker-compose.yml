@@ -15,8 +15,8 @@ services:
       - backend
     volumes:
       - db_data:/var/lib/mysql
-    ports:
-      - "3306:3306"
+#    ports:
+#      - "3306:3306"
 
   contact:
     container_name: contact
@@ -41,8 +41,6 @@ services:
       args:
         MODULE_NAME: icon-handling
     image: icon-handling
-    depends_on:
-      - db
     env_file:
       - .env
     networks:
@@ -54,7 +52,7 @@ services:
     container_name: contacts-nginx
     image: nginx:latest
     ports:
-      - "${API_PORT}:${BACKEND_LISTENING_PORT}"
+      - "${BE_PORT_EXTERNAL}:${NGINX_PORT_LISTENING}"
     env_file: .env
     volumes:
       - ./contacts-backend/nginx/nginx.conf.template:/etc/nginx/templates/default.conf.template:ro,Z
@@ -71,11 +69,11 @@ services:
       dockerfile: contacts-frontend-js/Dockerfile
       args:
         CONTACT_API: ${CONTACT_API}
+        CONTACT_HOST: ${BE_HOST_PORTLESS_EXTERNAL}:${BE_PORT_EXTERNAL}
         ICON_HANDLING_API: ${ICON_HANDLING_API}
-        SERVER_HOST_EXTERNAL: ${SERVER_HOST_EXTERNAL}
-        API_PORT: ${API_PORT}
+        ICON_HANDLING_HOST: ${BE_HOST_PORTLESS_EXTERNAL}:${BE_PORT_EXTERNAL}
     ports:
-      - "1024:${FRONTEND_LISTENING_PORT}"
+      - "1024:${FRONTEND_PORT_LISTENING}"
     restart: unless-stopped
 
 

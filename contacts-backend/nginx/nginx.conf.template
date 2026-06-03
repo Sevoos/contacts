@@ -7,7 +7,7 @@ upstream icon-handling {
 }
 
 server {
-    listen ${BACKEND_LISTENING_PORT};
+    listen ${NGINX_PORT_LISTENING};
 
     # Contact service
     location ${CONTACT_API}/ {

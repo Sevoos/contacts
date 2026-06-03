@@ -1,7 +1,10 @@
 server:
   port: 8092
+  servlet:
+    context-path: /api/icon-handling/v1
 shared:
-  hostContact: http://localhost:8091
+  contactApi: /api/contact/v1
+  contactHost: http://localhost:8091
 
 iconhandling:
-  iconsDirectory: contacts-backend/icons
+  iconsDirectory: contacts-backend/icon-handling/icons
