@@ -10,6 +10,7 @@ export const patronymicName = "patronymicName"
 export const timezone = "timezone"
 
 export const contactPatchKeys = [birthdayDate, category, defaultIconId, displayName, firstName, lastName, patronymicName, timezone] as const
-export const contactGeneralPatchKeys = [...contactPatchKeys, icons, communicationChannels] as const
 export type ContactPatchKey = typeof contactPatchKeys[number]
+
+export const contactGeneralPatchKeys = [...contactPatchKeys, icons, communicationChannels] as const
 export type ContactGeneralPatchKey = typeof contactGeneralPatchKeys[number]

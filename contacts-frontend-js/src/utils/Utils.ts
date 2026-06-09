@@ -1,4 +1,19 @@
-import {bigintReplacer} from "@/utils/ContactLocalStore.ts";
+import { bigintReplacer } from "@/utils/ContactLocalStore.ts";
+
+export function computeIfAbsent<K, V>(
+  map: Map<K, V>,
+  key: K,
+  factory: (key: K) => V
+): V {
+  let value = map.get(key);
+
+  if (value === undefined) {
+    value = factory(key);
+    map.set(key, value);
+  }
+
+  return value;
+}
 
 export function sanitizeSpaces(value: string): string {
   let result = value

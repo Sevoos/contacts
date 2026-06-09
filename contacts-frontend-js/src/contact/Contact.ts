@@ -1,5 +1,5 @@
 import {
-  BirthdayDateDto, ContactDto, sortCommunicationChannels,
+  ContactDto, sortCommunicationChannels,
 } from "@contacts/frontend-api";
 import {
   deleteContactIfSaved,
@@ -8,11 +8,14 @@ import {
 } from "@/utils/ContactUtils.ts";
 import {type CommunicationChannel, communicationChannelFromDto} from "@/contact/CommunicationChannel.ts";
 import {myStore} from "@/store";
+import { getBirthdayDateFromDto, type BirthdayDate } from "./BirthdayDate";
+import { getClosestBirthdayStart } from "@/utils/BirthdayDateUtils";
 
 export class Contact {
+  
   constructor(
     public id: bigint,
-    public birthdayDate: BirthdayDateDto | null,
+    public birthdayDate: BirthdayDate | null,
     public category: string[],
     public communicationChannels: CommunicationChannel[],
     public creationDate: bigint,
@@ -28,16 +31,28 @@ export class Contact {
   ) {
 
   }
+
+  public recomputeClosestBirthdayStart() {
+    if (!this.birthdayDate) return
+    this.birthdayDate.closestStart = getClosestBirthdayStart(
+      this.birthdayDate.month,
+      this.birthdayDate.day,
+      this.timezone
+    )
+  }
+  
 }
 
 export function saveContactFromDto(dto: ContactDto) {
   const store = myStore()
-  const existingContactsWithIdenticalName = getContactsWithIdenticalNameFromAll(dto)
+  const birthdayDateDto = dto.birthdayDate
   const communicationChannels = dto.communicationChannels.asJsReadonlyArrayView().slice()
   sortCommunicationChannels(communicationChannels)
+  const contactTimezone = dto.timezone
+  const existingContactsWithIdenticalName = getContactsWithIdenticalNameFromAll(dto)
   const contact = new Contact(
     dto.id,
-    dto.birthdayDate ?? null,
+    (birthdayDateDto ? getBirthdayDateFromDto(contactTimezone, birthdayDateDto) : null),
     dto.category.asJsReadonlyArrayView().slice(),
     communicationChannels.map(
       communicationChannelDto => communicationChannelFromDto(communicationChannelDto)
@@ -54,7 +69,7 @@ export function saveContactFromDto(dto: ContactDto) {
       dto
     ),
     dto.patronymicName ?? null,
-    dto.timezone
+    contactTimezone
   )
   deleteContactIfSaved(dto.id)
   saveContact(contact)

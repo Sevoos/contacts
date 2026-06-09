@@ -16,6 +16,7 @@ const contactApiConfig = new ContactApiConfig(env.contactHost, env.contactApi);
 const iconHandlingApiConfig = new IconHandlingApiConfig(env.iconHandlingHost, env.iconHandlingApi);
 
 export const myStore = defineStore("store", {
+  
   state: () => ({
     contactApiService: new ContactPublicApiFrontendService(contactApiConfig),
     communicationChannelApiService: new CommunicationChannelPublicApiFrontendService(
@@ -31,4 +32,9 @@ export const myStore = defineStore("store", {
     contacts: findAllContacts(),
     hasContactJustBeenReplaced: false,
   }),
+
+  getters: {
+    
+  }
+  
 });

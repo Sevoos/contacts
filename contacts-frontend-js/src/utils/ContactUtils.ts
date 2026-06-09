@@ -1,8 +1,6 @@
 import {ContactLocalStore} from "@/utils/ContactLocalStore.ts";
-import {type Contact, saveContactFromDto} from "@/contact/Contact.ts";
+import {type Contact} from "@/contact/Contact.ts";
 import {BirthdayDateDto, type Nullable} from "@contacts/frontend-api";
-import {Temporal} from "@js-temporal/polyfill";
-import Instant = Temporal.Instant;
 import {myStore} from "@/store";
 import {stringifyBigint} from "@/utils/Utils.ts";
 
@@ -21,6 +19,7 @@ export function findAllContactsIds(): bigint[] {
 }
 
 export function findAllContacts(): Contact[] {
+  console.log("Found")
   return findAllContactsIds().map(id => findContactById(id)!)
 }
 
@@ -106,49 +105,6 @@ export function formatBirthdayDate(date: BirthdayDateDto): string {
   }
 
   return result
-}
-
-function fromWithLeapRollForward(
-  year: number,
-  month: number,
-  day: number
-): Temporal.PlainDate {
-  try {
-    // Valid date → return normally
-    return Temporal.PlainDate.from({ year, month, day });
-  } catch (e) {
-    // Only special‑case Feb 29
-    if (month === 2 && day === 29) {
-      return Temporal.PlainDate.from({ year, month: 3, day: 1 });
-    }
-    throw e; // Other invalid dates should still fail
-  }
-}
-
-export function getBirthdayStart(birthday: BirthdayDateDto, timezone: string): Instant {
-  // const now = Temporal.Now
-  // const startOfToday = now.zonedDateTimeISO(effectiveTimezone()).startOfDay().toInstant()
-  // if (timezone === "Europe/Athens") {
-  //   return startOfToday
-  // }
-  // return now.instant().add({hours: 24, seconds: 2})
-
-  const todayDate = Temporal.Now.plainDateISO(timezone);
-
-  let birthdayDate = fromWithLeapRollForward(
-    todayDate.year,
-    birthday.month,
-    birthday.day
-  )
-
-  if (Temporal.PlainDate.compare(todayDate, birthdayDate) > 0) {
-    birthdayDate = birthdayDate.add({ years: 1 });
-  }
-
-  return birthdayDate
-    .toZonedDateTime(timezone)
-    .startOfDay().toInstant()
-
 }
 
 function normalize(s: string): string {

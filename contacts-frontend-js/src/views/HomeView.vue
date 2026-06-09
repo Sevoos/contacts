@@ -3,7 +3,7 @@
 import {computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch} from "vue";
 import {latestFetchAllContacts, readConfig} from "@/config/settings.ts";
 import {
-  findAllContacts, getBirthdayStart, searchTokens,
+  findAllContacts, searchTokens,
 } from "@/utils/ContactUtils.ts";
   import type {CategoryNodeObject} from "@/utils/CategoryNodeObject.ts";
   import CategoryNode from "@/components/CategoryNode.vue";
@@ -40,7 +40,7 @@ function analyzeBirthday(contact: Contact) {
       if (currentNextBirthday) {
         return currentNextBirthday
       }
-      const newNextBirthday = getBirthdayStart(
+      const newNextBirthday = getClosestBirthdayStart(
         birthdayDate, contact.timezone
       )
       store.contactIdToNextBirthdayInstant.set(contactId, newNextBirthday)
@@ -50,10 +50,7 @@ function analyzeBirthday(contact: Contact) {
 
     const now = Temporal.Now.instant()
     const untilDuration = now.until(nextBirthday)
-    if (untilDuration.seconds < 86400 && untilDuration.sign === 1
-      // || contact.nameToActuallyDisplay === "Папа"
-      // || contact.nameToActuallyDisplay === "Абзал"
-    ) {
+    if (untilDuration.seconds < 86400 && untilDuration.sign === 1) {
       store.contactsWithBirthdaySoon.add(contactId)
     } else {
       store.contactsWithBirthdaySoon.delete(contactId)
@@ -132,6 +129,7 @@ async function updateContacts() {
 const config = ref(readConfig())
 
 onMounted(async () => {
+  console.log("Mounted")
   const currentConfig = config.value
 
   if (currentConfig.fetchAllContactsOnlyManually) {
@@ -256,7 +254,7 @@ watch(guiStore.elementRegistry, currentValue => {
 
 watch(
   [focusedItem, visibleItems, registryReady],
-  async ([item, _, ready]) => {
+  async ([item, , ready]) => {
     if (!item || !ready) return
     if (store.hasContactJustBeenReplaced) {
       store.hasContactJustBeenReplaced = false
@@ -366,7 +364,7 @@ function clickContactLink(contactId: bigint) {
             :contact="localFindContactById(focusedItem.contactId)!"
             :getArrowLeftToDetails="(contactId: bigint) => getArrowLeftToDetails(contactId)"
             :alive="alive"
-            :moveFocus="moveFocus"
+            :moveContactFocus="moveFocus"
           />
         </div>
 
@@ -381,7 +379,7 @@ function clickContactLink(contactId: bigint) {
           <span>
             People with birthday at the moment:
           </span>
-          <span v-for="(contactId, index) in Array.from(store.contactsWithBirthdayNow)">
+          <span v-for="(contactId, index) in Array.from(store.contactsWithBirthdayNow)" :key="contactId.toString()">
             <span class="contactLink" @click="clickContactLink(contactId)">
               {{localFindContactById(contactId)!.nameToActuallyDisplay}}
             </span>
@@ -392,7 +390,7 @@ function clickContactLink(contactId: bigint) {
           <span>
             People with birthday soon:
           </span>
-          <span v-for="(contactId, index) in Array.from(store.contactsWithBirthdaySoon)">
+          <span v-for="(contactId, index) in Array.from(store.contactsWithBirthdaySoon)" :key="contactId.toString()">
             <span class="contactLink" @click="clickContactLink(contactId)">
               {{localFindContactById(contactId)!.nameToActuallyDisplay}}
             </span>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 <script setup lang="ts">
 
 import type {Contact} from "@/contact/Contact.ts";
@@ -70,7 +71,7 @@ const props = defineProps<{
   contact: Contact
   getArrowLeftToDetails: (contactId: bigint) => boolean
   alive: boolean
-  moveFocus: (delta: 1 | -1) => void
+  moveContactFocus: (delta: 1 | -1) => void
 }>()
 
 const savedContact = ref(props.contact)
@@ -106,7 +107,7 @@ function replaceContact(contact: Contact) {
   // contactIdToArrowLeftToDetails.set(contact.id, true)
 }
 
-function moveFocus(delta: 1 | -1) {
+function moveIconFocus(delta: 1 | -1) {
   const currentFocusedIcon = focusedIconId.value
   if (!currentFocusedIcon) {
     return
@@ -125,10 +126,10 @@ function onKeyDown(e: KeyboardEvent) {
 
   if (e.key === "ArrowRight") {
     e.preventDefault()
-    moveFocus(1)
+    moveIconFocus(1)
   } else if (e.key === "ArrowLeft") {
     e.preventDefault()
-    moveFocus(-1)
+    moveIconFocus(-1)
   }
 }
 
@@ -250,7 +251,7 @@ function deleteContact(id: bigint) {
   store.contactApiService.deleteContact(id).then(response => {
     if (response.status === 200) {
       deleteContactIfSaved(id)
-      props.moveFocus(-1)
+      props.moveContactFocus(-1)
       store.contacts.splice(store.contacts.findIndex(contact => contact.id === id), 1)
     }
   })
@@ -292,7 +293,7 @@ const generalKeyToSavedValueGetter: Record<ContactGeneralPatchKey, () => any> = 
   birthdayDate: () => new BirthdayDatePatch(
     birthdayDateAlreadyPresent.value,
     birthdayDateAlreadyPresent.value ?
-      birthdayDateCreationFromDto(savedContact.value.birthdayDate!) :
+      savedContact.value.birthdayDate?.toCreation() ?? emptyBirthdayDateCreation() :
       emptyBirthdayDateCreation()
   ),
   category: () => new InputArray(
